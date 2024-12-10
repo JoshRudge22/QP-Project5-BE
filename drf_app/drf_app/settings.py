@@ -35,7 +35,7 @@ SECRET_KEY = 'django-insecure-(_!h2cu_+c0qshuwebxt1!9h@av1_7$4riw@&ifxqa1_m1o1v+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['8000-joshrudge22-qpproject5b-95ep6vdl7o3.ws-eu117.gitpod.io']
 
 
 # Application definition
@@ -49,8 +49,32 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
-    'profiles'
+    'profiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'django.contrib.sites', 
+    'allauth', 
+    'allauth.account', 
+    'allauth.socialaccount', 
+    'dj_rest_auth.registration',
 ]
+
+SITE_ID = 1
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [( 
+        'rest_framework.authentication.SessionAuthentication' 
+        if 'DEV' in os.environ 
+        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    )]
+    }
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_SECURE = True
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER': 'drf_api.serializers.CurrentUserSerializer'}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
