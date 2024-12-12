@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from .views import EditProfileView, ResourceListView, InquiryCreateView
 
 urlpatterns = [
     path('profile/edit/', EditProfileView.as_view()),
