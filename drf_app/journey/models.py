@@ -12,3 +12,18 @@ class Journey(models.Model):
 
     def __str__(self):
         return f"{self.title} by {self.user.username}"
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
+    journey = models.ForeignKey(Journey, on_delete=models.CASCADE, related_name='likes')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class Meta:
+    unique_together = ('user', 'journey')
+
+@property
+def like_count(self):
+    return self.likes.count()
+
+    def __str__(self):
+        return f"{self.user.username} liked {self.journey.title}"
